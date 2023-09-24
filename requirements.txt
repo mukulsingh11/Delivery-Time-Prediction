@@ -1,5 +1,11 @@
-numpy 
-pandas
+pandas 
+numpy
+PyYAML
 Flask
+pickle5
+scipy
+sklearn
+scikit-learn
 
--e.
+
+-e .

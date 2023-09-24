@@ -16,7 +16,7 @@ def get_requirements()->List[str]:
 
 
 
-setup(name=' Delivery Time Prediction ',
+setup(name='Delivery Time Prediction',
       version='0.0.1',
       description='Delivery Time Prediction Indicators Industry lavel project',
       author='Mukul Singh',
