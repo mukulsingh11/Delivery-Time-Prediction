@@ -2,10 +2,10 @@ pandas
 numpy
 PyYAML
 Flask
-pickle5
+pickle50.0.12
 scipy
 sklearn
 scikit-learn
-
+dill 
 
 -e .
