@@ -7,5 +7,6 @@ scipy
 sklearn
 scikit-learn
 dill 
+xgboost
 
 -e .

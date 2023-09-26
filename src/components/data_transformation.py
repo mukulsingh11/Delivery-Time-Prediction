@@ -59,6 +59,7 @@ class Feature_Engineering(BaseEstimator, TransformerMixin):
             raise CustomException(e,sys) from e
 @dataclass
 class DataTransformationConfig():
+
     proccessed_obj_file_path = PREPROCESSING_OBJ_FILE
     transform_train_path=TRANSFORM_TRAIN_FILE_PATH
     transform_test_path = TRANSFORM_TEST_FILE_PATH
@@ -67,11 +68,13 @@ class DataTransformationConfig():
 
 class DataTransformation:
     def __init__(self):
+        logging.info('******** data transformation is started ***********')        
         self.data_transformation_config = DataTransformationConfig()
 
 
     def get_data_transformation_obj(self):
         try:
+            logging.info('segregate the pipeline')
             Road_traffic_density = ['Low', 'Medium', 'High', 'Jam']
             Weather_conditions = ['Sunny', 'Cloudy', 'Fog', 'Sandstorms', 'Windy', 'Stormy']
 
@@ -100,7 +103,7 @@ class DataTransformation:
                 ('scaler', StandardScaler(with_mean=False))
             ])
 
-
+            logging.info(' connect to the pipeline ')
             preprocssor = ColumnTransformer([
                 ('numerical_pipeline', numerical_pipeline,numerical_column ),
                 ('categorical_pipeline', categorical_pipeline,categorical_columns ),
@@ -143,6 +146,8 @@ class DataTransformation:
 
             traget_columns_name = "Time_taken (min)"
 
+            logging.info(' split the target columns in x train and y train  ')
+
             X_train = train_df.drop(columns = traget_columns_name, axis = 1)
             y_train = train_df[traget_columns_name]
 
@@ -152,6 +157,7 @@ class DataTransformation:
             X_train = processinf_obj.fit_transform(X_train)
             X_test = processinf_obj.transform(X_test)
 
+            logging.info(" concenate the X_train to y_train , X_test to y_test  ")
             train_arr = np.c_[X_train, np.array(y_train)]
             test_arr = np.c_[X_test, np.array(y_test)]
 
@@ -171,7 +177,7 @@ class DataTransformation:
 
             save_object(file_path = self.data_transformation_config.feature_engg_obj_path,
                      obj = fe_obj)
-            
+            logging.info(' data transformation is completed ')
             return(train_arr,
                    test_arr,
                    self.data_transformation_config.proccessed_obj_file_path)
